@@ -20,21 +20,23 @@ def isUnique(string):
 def isUniqueInPlace(string):
     sortedString = sorted(string)
 
-    for i, c in enumerate(string):
-        if i > 0: # escape first char
-            if string[i] == string[i-1]:
+    for i, c in enumerate(sortedString):
+        if i > 0:
+            if sortedString[i] == sortedString[i-1]:
                 return False
 
     return True
 
 
 if __name__ == "__main__":
-    print(isUnique("bbb"))
+    print(isUnique("abca"))
     print(isUnique("a"))
     print(isUnique("abcfgh"))
     print(isUnique(""))
 
-    print(isUniqueInPlace("bbb"))
+    print(isUniqueInPlace("abca"))
     print(isUniqueInPlace("a"))
     print(isUniqueInPlace("abcfgh"))
     print(isUniqueInPlace(""))
+
+    
