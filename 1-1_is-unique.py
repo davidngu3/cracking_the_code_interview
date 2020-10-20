@@ -4,25 +4,41 @@
 # IDEAS:
 # If able to use additional data structures, I would use a hash table (dictionary in python) because it would allow fast lookup
 
-def isUnique(string): 
-    alphabetHash = {}
+# SOLUTION:
+# - Ask interviewer if ASCII (128, or 256 for extended ASCII) or Unicode
+# - I used hash initially but could equivalently use an array of length {alphabetSize}
+# - If we can't use additional data structures, we could compare each char against eachother O(n^2)
+# - OR if we can modify input string, we could sort (in place) and check linearly for neighbors
 
-    # enter each character c into a hashtable, if already entry at c then return false
-    for char in string:
-        if char in alphabetHash:
+# TIME COMPLEXITY:
+# - O(n), where n is length of string. Alternatively O(1) since n is never > 128
+# SPACE COMPLEXITY:
+# - O(1), always array of size 128 regardless of n
+
+
+def isUnique(string): 
+    if len(string) > 128: return False
+
+    charSet = [ None for _ in range(128) ]
+
+    # enter each character c into array, if already entry at c then return false
+    for i in range(len(string)):
+        charCode = ord(string[i])
+        if charSet[charCode]:
             return False
-        alphabetHash[char] = 1
+
+        charSet[charCode] = 1
 
     return True
 
 # If not able to use additional data structures, I would first sort the string then check adjacent values for inequality
 
 def isUniqueInPlace(string):
-    sortedString = sorted(string)
+    string = sorted(string)
 
-    for i, c in enumerate(sortedString):
+    for i, c in enumerate(string):
         if i > 0:
-            if sortedString[i] == sortedString[i-1]:
+            if string[i] == string[i-1]:
                 return False
 
     return True
