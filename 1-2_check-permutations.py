@@ -8,7 +8,7 @@
 def checkPermutations(string1, string2): 
     charHash = {}
     
-    # permutations must be same length
+    # optimisation: permutations must be same length
     if len(string1) != len(string2):
         return False
     
@@ -31,6 +31,11 @@ def checkPermutations(string1, string2):
 
     return True
 
+def checkPermutationsSort(string1, string2):
+    if len(string1) != len(string2):
+        return False
+
+    return sorted(string1) == sorted(string2)
 
 if __name__ == "__main__":
     # general case
@@ -47,6 +52,13 @@ if __name__ == "__main__":
 
     # special characters
     print(checkPermutations('%235@5', '%253@5'))
+
+
+    print(checkPermutationsSort('abdec', 'ecbda'))
+    print(checkPermutationsSort('aabc', 'ccab'))
+    print(checkPermutationsSort('aegz', 'eope'))
+    print(checkPermutationsSort('aabc', 'abc'))
+    print(checkPermutationsSort('%235@5', '%253@5'))
     
 
     
