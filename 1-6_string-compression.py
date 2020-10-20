@@ -1,5 +1,8 @@
 import unittest
 
+# NOTE:
+# String concatenation is costly!! In python, it's much faster to use list comprehensions or a list with join 
+
 def compress_string(string):
     if len(string) == 0:
         return string

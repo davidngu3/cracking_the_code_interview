@@ -5,6 +5,11 @@
 # Input: Tact Coa
 # Output: True (permutations: "taco cat". "atco cta". etc.)
 
+# Solutions:
+# - A possible and efficient solution (same time comp) is to use a bit vector, and toggle the ith bit for each char
+#   - Then, if there's only one or no '1' bit, then return True.
+#   - To check if there's only one '1' bit, we can do result & (result - 1) == 0
+
 import unittest
 
 def check_palindrome(string):
