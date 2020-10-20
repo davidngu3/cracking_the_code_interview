@@ -1,6 +1,9 @@
 # 1.7 Rotate Matrix: Given an image represented by an NxN matrix, where each pixel in the image is 4
 # bytes, write a method to rotate the image by 90 degrees. Can you do this in place?
-# Hints: #51, #100
+
+
+#IDEA:
+# - Rotate each layer starting from the outside working in
 
 import unittest
 
@@ -8,31 +11,45 @@ def rotate_matrix(image):
     # max dimension of matrix
     N = len(image)
 
-    # empty matrix for return
-    ret = [[[0 for x in range(4)] for j in range(N)] for i in range(N)]
+    firstLayer = 0
+    lastLayer = N // 2 
 
-    # rotate each pixel in the image by 90 degrees by swapping the 4 bits
-    for r in range(N):
-        for c in range(N):
-            rotate_pixel(image[r][c])
+    for layer in range(firstLayer, lastLayer):
+        # rotate layer
+        for i in range(layer, N-1-layer):
+            # temp <- top
+            temp = image[layer][i]
 
-    # rotate the image 
-    for r in range(N):
-        for c in range(N):
-            ret[r][c] = image[N-1-c][r]
+            # top <- left
+            image[layer][i] = image[N-1-i][layer]
 
-    return ret
+            # left <- bottom
+            image[N-1-i][layer] = image[N-1-layer][N-1-i]
 
-def rotate_pixel(pixel):
-    pixel[0], pixel[1] = pixel[1], pixel[0]
-    pixel[0], pixel[3] = pixel[3], pixel[0]
-    pixel[0], pixel[2] = pixel[2], pixel[0]
+            # bottom <- right 
+            image[N-1-layer][N-1-i] = image[i][N-1-layer]
+
+            # right <- temp
+            image[i][N-1-layer] = temp
+
+    return image
+
 
 
 class TestMethods(unittest.TestCase):
     def test_1(self):
-        self.assertEqual(rotate_matrix([[[64, 93, 120, 2], [34, 91, 101, 56]], [[31, 45, 93, 23], [45, 64, 31, 14]]]), 
-                        [[[93, 31, 23, 45],[120, 64, 2, 93]],[[31, 45, 14, 64],[101, 34, 56, 91]]])
+        self.assertEqual(rotate_matrix([[64, 93, 120, 2], [34, 91, 101, 56], [31, 45, 93, 23], [45, 64, 31, 14]]), 
+                        [[45, 31, 34, 64], [64, 45, 91, 93], [31, 93, 101, 120], [14, 23, 56, 2]])
+
+    def test_2(self):
+        self.assertEqual(rotate_matrix([[5, 2, 1, 5, 7], [2, 5, 3, 1, 8], [6, 2, 3, 6, 8], [9, 9, 5, 4, 3], [6, 3, 2, 6, 8]]),
+                        [[6, 9, 6, 2, 5], [3, 9, 2, 5, 2], [2, 5, 3, 3, 1], [6, 4, 6, 1, 5], [8, 3, 8, 8, 7]])
+
+    def test_3(self):
+        self.assertEqual(rotate_matrix([]),[])
+
+    def test_4(self):
+        self.assertEqual(rotate_matrix([9]),[9])
 
 if __name__ == '__main__':
     unittest.main()
