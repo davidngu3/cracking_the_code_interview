@@ -13,7 +13,7 @@ class Node:
 class LinkedList:
     def __init__(self, head):
         self.head = head
-        self.seen = []
+        self.seen = {}
 
     def printList(self):
         node = self.head
@@ -41,13 +41,16 @@ class LinkedList:
 
     def removeDups(self):
         node = self.head
-        self.seen.append(node.data)
+        previous = None
 
-        while node.next:
-            if node.next.data in self.seen:
-                node.next = node.next.next
+        while node:
+            if node.data in self.seen:
+                previous.next = node.next
+            else:
+                self.seen[node.data] = True
+                previous = node
             node = node.next
-            self.seen.append(node.data)
+            
 
 
 
