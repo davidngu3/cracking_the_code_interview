@@ -13,6 +13,7 @@ class Node:
 class LinkedList:
     def __init__(self, head):
         self.head = head
+        self.seen = []
 
     def printList(self):
         node = self.head
@@ -34,10 +35,20 @@ class LinkedList:
             if node.next and node.next.data == target:
                 node.next = node.next.next
             node = node.next
-
     
     def addNode(self, val):
         self.head = Node(val, self.head)
+
+    def removeDups(self):
+        node = self.head
+        self.seen.append(node.data)
+
+        while node.next:
+            if node.next.data in self.seen:
+                node.next = node.next.next
+            node = node.next
+            self.seen.append(node.data)
+
 
 
 ## 
@@ -52,10 +63,14 @@ if __name__ == "__main__":
     newList.addNode(3)
     newList.addNode(4)
     newList.addNode(6)
-    
-    newList.deleteNode(newList.head, 4)
 
     newList.printList()
+    newList.removeDups()
+    newList.printList()
+
+
+
+
 
 
     
