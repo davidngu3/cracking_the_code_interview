@@ -49,11 +49,7 @@ class LinkedList:
             else:
                 self.seen[node.data] = True
                 previous = node
-            node = node.next
-            
-
-
-
+            node = node.next    
 ## 
 
 if __name__ == "__main__":
