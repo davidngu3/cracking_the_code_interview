@@ -18,6 +18,10 @@ class LinkedList:
         self.head = Node(val, self.head)
         return self.head
 
+    def deleteNode(self, node):
+        node.data = node.next.data
+        node.next = node.next.next
+        return True
 
 
 if __name__ == "__main__":
@@ -31,12 +35,8 @@ if __name__ == "__main__":
     newList.printList()
     
     # given just middleNode, how to delete it?
-    while middleNode.next:
-        if not middleNode.next.next:
-            middleNode.next = None
-        else:
-            middleNode.data = middleNode.next.data
-            middleNode = middleNode.next
+    # copy next node value, then delete next node
+    newList.deleteNode(middleNode)
 
     newList.printList()
     
