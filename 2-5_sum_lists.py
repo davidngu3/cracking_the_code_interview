@@ -27,30 +27,24 @@ def sumLists(list1, list2):
     carry = 0
 
     while node1 or node2:
-        if not node2:
-            ans.next = Node(node1.data)
-            ans = ans.next
-            node1 = node1.next
-        
-        elif not node1:
-            ans.next = Node(node2.data)
-            ans = ans.next
-            node2 = node2.next
+        node1Val = node1.data if node1 else 0
+        node2Val = node2.data if node2 else 0
 
+        result = node1Val + node2Val + carry
+        carry = 0  # reset carry digit
+
+        if result > 10:
+            ans.next = Node(result - 10)
+            carry = 1
         else:
-            result = node1.data + node2.data + carry
-            carry = 0
+            ans.next = Node(result)
 
-            if result > 10:
-                ans.next = Node(result - 10)
-                carry = 1
-            else:
-                ans.next = Node(result)
-
-            ans = ans.next
+        if node1: 
             node1 = node1.next
+        if node2: 
             node2 = node2.next
-    
+        ans = ans.next
+
     return LinkedList(ansHead.next)
 
 
