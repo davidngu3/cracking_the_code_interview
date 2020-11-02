@@ -19,21 +19,33 @@ class LinkedList:
         self.head = Node(val, self.head)
         return self.head
 
-def detectLoop(list1):
-    node = list1.head
+    def detectLoop(self):
+        slow = self.head
+        fast = self.head
 
-    while node:
-        # mark current node as traversed; if already traversed, then that is the intersecting node
-        if node.traversed:
-            return node
-        else:
-            node.traversed = True
+        # slow moves p, fast moves 2p
+        # once slow enters loop after k nodes, fast has moved 2k nodes, (k % loopsize) nodes into loop
+        # fast will catch up to slow after loopsize - (k % loopsize) => collision
+        collision = False
+        while not collision:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                collision = True
+
+        # at this point, the collision node is K nodes away from start of loop, which is also k nodes away from start of loop
+        # the head of the linked list is also k nodes from start of loop
+        # traverse both until collision, this is the start of loop
+        head = self.head
+        loop_found = False
         
-        # traverse both nodes
-        if node.next:
-            node = node.next
+        while not loop_found:
+            slow = slow.next
+            head = head.next
+            if slow == head:
+                loop_found = True
 
-    return None
+        return slow
 
 if __name__ == "__main__":
     list1 = LinkedList()
@@ -45,6 +57,6 @@ if __name__ == "__main__":
 
     tail.next = loophead
 
-    print(detectLoop(list1).data)
+    print(list1.detectLoop().data)
 
     
