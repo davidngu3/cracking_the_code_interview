@@ -32,22 +32,35 @@ class Stack:
         print("\n")
 
 class StackSet:
-    def __init__(self, stacks = []):
-        self.stacks = stacks
+    def __init__(self):
+        self.stacks = [Stack()]
+        self.sizes = [0]
+
+    def push(self, data):
+        self.stacks[-1].push(data)
+        self.sizes[-1] += 1
+        if self.sizes[-1] >= 3:
+            self.stacks.append(Stack())
+            self.sizes.append(0)
+
+    def pop(self):
+        print(" ")
 
     def printStacks(self):
-        print(" ")
+        for stack in self.stacks:
+            stack.print()
 
 
 if __name__ == "__main__":
-    newStack = Stack()
-    newStack.push(5)
-    newStack.push(7)
-    newStack.push(2)
-    newStack.push(1)
-
-    newStack.print()
-
-    newStack.pop()
-    newStack.print()
-    
+    plates = StackSet()
+    plates.push(1)
+    plates.push(4)
+    plates.push(3)
+    plates.push(2)
+    plates.push(6)
+    plates.push(9)  
+    plates.push(2)
+    plates.push(1)
+    plates.push(5)
+    plates.push(2)
+    plates.printStacks()
