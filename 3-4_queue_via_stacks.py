@@ -41,7 +41,7 @@ class MyQueue:
     def push(self, data):
         self.stack.push(data) 
 
-    # for popping, we need to pop N-1 nodes, storing them in temp stack, then serving the last item and putting everything back
+    # for popping, we need to pop all nodes, storing them in temp stack, take the top node off then put everything back O(N)
     def pop(self):
         while self.stack.top:
             poppedItem = self.stack.pop()
@@ -56,7 +56,6 @@ class MyQueue:
         
         return returnItem
         
-    
     def print(self):
         node = self.stack.top
         while node:
