@@ -34,36 +34,43 @@ class Stack:
 
 class MyQueue:
     def __init__(self, top=None):
-        self.stack = Stack()
-        self.tempStack = Stack()
+        self.newStack = Stack()
+        self.oldStack = Stack()
     
-    # pushing is normal
+    # push onto newStack
     def push(self, data):
-        self.stack.push(data) 
+        self.newStack.push(data) 
 
-    # for popping, we need to pop all nodes, storing them in temp stack, take the top node off then put everything back O(N)
+    # for popping, take top off of oldStack; if empty, transfer newstack to oldstack (in reverse order)
     def pop(self):
-        while self.stack.top:
-            poppedItem = self.stack.pop()
-            self.tempStack.push(poppedItem.data)
+        if self.oldStack.top:
+            return self.popOld()
         
-        returnItem = self.tempStack.top
-        self.tempStack.top = self.tempStack.top.next
+        while self.newStack.top:
+            poppedItem = self.newStack.pop()
+            self.oldStack.push(poppedItem.data)
+        
+        return self.popOld()
+    
+    def popOld(self):
+        poppedItem = self.oldStack.top
 
-        while self.tempStack.top:
-            poppedItem = self.tempStack.pop()
-            self.stack.push(poppedItem.data)
-        
-        return returnItem
-        
+        # delete top node
+        if self.oldStack.top.next:
+            self.oldStack.top = self.oldStack.top.next
+        else:
+            self.oldStack.top = None
+            
+        return poppedItem
+
     def print(self):
-        node = self.stack.top
+        node = self.newStack.top
         while node:
             print(node.data, end="-")
             node = node.next
         print("\n")
 
-        node = self.tempStack.top
+        node = self.oldStack.top
         while node:
             print(node.data, end="-")
             node = node.next
@@ -79,13 +86,13 @@ if __name__ == "__main__":
     
     queue.print()
 
-    queue.pop()
+    print(queue.pop().data)
 
     queue.print()
 
     queue.push(5)
     queue.push(13)
 
-    queue.pop()
+    print(queue.pop().data)
 
     queue.print()
