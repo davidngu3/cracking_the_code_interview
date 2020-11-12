@@ -18,12 +18,19 @@ class Queue:
             self.front = self.back
         return self.back
 
-    def dequeue(self, val):
+    def dequeueAny(self):
         returnItem = self.front
         self.front = self.front.next
 
-    def printList(self):
-        node = self.head
+    def dequeueCat(self):
+        # if no cat pointer yet
+        returnItem
+
+    def dequeueDog(self):
+        return True
+
+    def print(self):
+        node = self.front
         while node:
             print(node.data)
             node = node.next
@@ -31,6 +38,15 @@ class Queue:
 
 
 if __name__ == "__main__":
+    animals = Queue()
+    animals.enqueue('dog')
+    animals.enqueue('dog')
+    animals.enqueue('cat')
+    animals.enqueue('cat')
+    animals.enqueue('dog')
+    
+
+    animals.print()
     
 
     
