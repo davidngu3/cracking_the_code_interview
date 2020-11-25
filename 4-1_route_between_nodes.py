@@ -9,20 +9,21 @@ def detectRoute(node_a, node_b):
     detectRoute.routeFound = False
 
     def dfs(node):
-        # base case: null node
-        if not node: 
-            return
+        if not detectRoute.routeFound: # for early termination
+            # base case: null node
+            if not node: 
+                return
 
-        # process current node 
-        print(node.val, node_b.val)
-        if node == node_b:
-            detectRoute.routeFound = True
-        node.visited = True
+            # process current node 
+            print(node.val, node_b.val)
+            if node == node_b:
+                detectRoute.routeFound = True
+            node.visited = True
 
-        # check all neighbours
-        for n in node.neighbours:
-            if not n.visited:
-                dfs(n)
+            # check all neighbours
+            for n in node.neighbours:
+                if not n.visited:
+                    dfs(n)
 
     dfs(node_a)
     return detectRoute.routeFound
