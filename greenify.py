@@ -3,3 +3,4 @@
 # dynamic programming #1
 # filtrations parameter
 # New years resolution: Code everyday
+# Oops its new years and didnt code today
