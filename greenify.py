@@ -1,8 +1,0 @@
-# hello i am abusing githubs heatmap function
-# more green more veges tomato heee greeeaaaaaaaaaaa
-# dynamic programming #1
-# filtrations parameter
-# New years resolution: Code everyday
-# Oops its new years and didnt code today
-# And today either.. went shopping
-# tomorrow is the day
