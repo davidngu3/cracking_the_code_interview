@@ -13,25 +13,22 @@ class BST:
     def __init__(self, root = None):
         self.root = root
 
-    def insert(self, node, head = None):
+    def insert(self, key):
         if not self.root:  # case: no root
-            self.root = node
-
+            self.root = Node(key)
         else:
-            if not head:
-                head = self.root
+            self.rec_insert(self.root, key)
 
-            if node.val < head.val:
-                if not head.left:
-                    head.left = node
-                else:
-                    self.insert(node, head.left)
-            else:
-                if not head.right:
-                    head.right = node
-                else:
-                    self.insert(node, head.right)
-                
+    def rec_insert(self, root, key):
+        if root is None:
+            return Node(key)
+
+        if key < root.val:
+            root.left = self.rec_insert(root.left, key)
+        else:
+            root.right = self.rec_insert(root.right, key)
+        
+        return root
             
 
 # class TestMethods(unittest.TestCase):
@@ -44,14 +41,10 @@ if __name__ == "__main__":
 
     aBST = BST()
 
-    newNode = Node(5)
-    aBST.insert(newNode)
-    newNode = Node(3)
-    aBST.insert(newNode)
-    newNode = Node(15)
-    aBST.insert(newNode)
-    newNode = Node(34)
-    aBST.insert(newNode)
+    aBST.insert(5)
+    aBST.insert(3)
+    aBST.insert(13)
+    aBST.insert(45)
 
     print(aBST.root.val)
     print(aBST.root.left.val)
