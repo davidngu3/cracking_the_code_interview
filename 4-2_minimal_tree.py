@@ -29,7 +29,24 @@ class BST:
             root.right = self.rec_insert(root.right, key)
         
         return root
-            
+    
+def createMinTree(arr):
+    # create empty BST
+    minBST = BST()
+
+    def recursiveAdd(left, right):
+        if right >= left:
+            midPoint = left + ((right - left) // 2)
+
+            minBST.insert(arr[midPoint])
+            recursiveAdd(left, midPoint - 1)
+            recursiveAdd(midPoint + 1, right)
+        
+        return 0
+    
+    recursiveAdd(0, len(arr) - 1)
+    
+
 
 # class TestMethods(unittest.TestCase):
 #     def test_1(self):
@@ -37,19 +54,7 @@ class BST:
 if __name__ == "__main__":
     arr = [1, 2, 3, 4, 5, 6]
 
-    midPoint = (len(arr) - 1) // 2 
-
-    aBST = BST()
-
-    aBST.insert(5)
-    aBST.insert(3)
-    aBST.insert(13)
-    aBST.insert(45)
-
-    print(aBST.root.val)
-    print(aBST.root.left.val)
-    print(aBST.root.right.val)
-    print(aBST.root.right.right.val)
+    createMinTree(arr)
     
     # unittest.main() 
 
